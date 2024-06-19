@@ -1,0 +1,15 @@
+{
+  "name": "notes_frontend",
+  "version": "1.0.0",
+  "description": "front de NotesApp",
+  "main": "index.mjs",
+  "scripts": {
+    "test": "node test.js",
+    "start": "node index.mjs"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
