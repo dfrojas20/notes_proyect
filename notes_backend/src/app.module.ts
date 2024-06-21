@@ -13,6 +13,7 @@ var url: string = process.env.DB_HOST
 
 if (url === undefined ) url = 'mongodb://mongo:AyDxAggoIFCQkKBkKkYKFvrkjMOXmVNN@monorail.proxy.rlwy.net:52294'
 
+console.log("app version 1.0")
 console.log(url)
 
 @Module({
