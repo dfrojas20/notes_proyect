@@ -36,4 +36,4 @@ jobs:
         context: ./notes_frontend
         file: ./notes_frontend/Dockerfile
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/notes_backend:latest
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/notes_frontend:latest
