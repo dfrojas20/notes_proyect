@@ -22,10 +22,18 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: Build and Push Docker Image
+    - name: build and push backend
       uses: docker/build-push-action@v4
       with:
         context: ./notes_backend
         file: ./notes_backend/Dockerfile
+        push: true
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/notes_backend:latest
+
+    - name: build and push frontend
+      uses: docker/build-push-action@v4
+      with:
+        context: ./notes_frontend
+        file: ./notes_frontend/Dockerfile
         push: true
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/notes_backend:latest
