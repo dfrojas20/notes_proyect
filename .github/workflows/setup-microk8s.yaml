@@ -17,6 +17,6 @@ jobs:
         kubectl get no
         kubectl get pods -A -o wide
         kubectl apply -f ./kubernetes/app-deployment.yaml
-        sleep 10
+        sleep 20
         kubectl get pods -A -o wide
         
