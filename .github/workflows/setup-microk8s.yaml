@@ -24,11 +24,11 @@ jobs:
 
       - name: Install MicroK8s
         run: sudo snap install microk8s --classic
-
+ 
+      - run: newgrp microk8s
       - run: sudo usermod -a -G microk8s $USER
       - run: mkdir ~/.kube
       - run: sudo chown -f -R $USER ~/.kube
-      - run: newgrp microk8s
       - run: microk8s status
 
       - name: Display MicroK8s info
