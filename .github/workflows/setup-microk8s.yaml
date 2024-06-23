@@ -32,9 +32,7 @@ jobs:
          newgrp $GROUP
          mkdir ~/.kube
          sudo chown -f -R $USER ~/.kube
-
-      - name: Verify MicroK8s installation
-        run: microk8s status --wait-ready
+         microk8s status
 
       - name: Display MicroK8s info
         run: microk8s kubectl get nodes
