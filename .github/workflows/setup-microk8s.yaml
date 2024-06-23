@@ -26,19 +26,15 @@ jobs:
         run: sudo snap install microk8s --classic
 
       - name: Add current user to microk8s group
-        run: sudo usermod -a -G microk8s $USER
-
-      - name: Change ownership of .kube directory
         run: |
-         mkdir ~/.kube 
+         GROUP=snap_microk8s # microk8s for non-strict
+         sudo usermod -a -G $GROUP $USER
+         newgrp $GROUP
+         mkdir ~/.kube
          sudo chown -f -R $USER ~/.kube
 
       - name: Verify MicroK8s installation
         run: microk8s status --wait-ready
-
-      - name: Enable necessary MicroK8s addons
-        run: |
-          microk8s enable dns storage
 
       - name: Display MicroK8s info
         run: microk8s kubectl get nodes
