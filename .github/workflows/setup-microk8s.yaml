@@ -23,15 +23,13 @@ jobs:
         run: sudo apt-get install -y snapd
 
       - name: Install MicroK8s
-        run: sudo snap install microk8s --channel 1.29-strict/stable 
+        run: sudo snap install microk8s --classic
 
       - name: Add current user to microk8s group
         run: |
-         GROUP=snap_microk8s
-         sudo usermod -a -G $GROUP $USER
+         sudo usermod -a -G microk8s $USER
          mkdir ~/.kube
          sudo chown -f -R $USER ~/.kube
-         newgrp $GROUP
          microk8s status
 
       - name: Display MicroK8s info
