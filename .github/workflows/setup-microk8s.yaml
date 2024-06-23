@@ -30,7 +30,7 @@ jobs:
 
       - name: Change ownership of .kube directory
         run: |
-         mkidr ~/.kube 
+         mkdir ~/.kube 
          sudo chown -f -R $USER ~/.kube
 
       - name: Verify MicroK8s installation
