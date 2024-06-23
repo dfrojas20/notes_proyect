@@ -29,7 +29,9 @@ jobs:
         run: sudo usermod -a -G microk8s $USER
 
       - name: Change ownership of .kube directory
-        run: sudo chown -f -R $USER ~/.kube
+        run: |
+         mkidr ~/.kube 
+         sudo chown -f -R $USER ~/.kube
 
       - name: Verify MicroK8s installation
         run: microk8s status --wait-ready
