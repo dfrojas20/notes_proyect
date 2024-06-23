@@ -23,7 +23,7 @@ jobs:
         run: sudo apt-get install -y snapd
 
       - name: Install MicroK8s
-        run: sudo snap install microk8s --classic
+        run: sudo install microk8s --channel 1.29-strict/stable
 
       - name: Add current user to microk8s group
         run: |
