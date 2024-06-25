@@ -12,9 +12,6 @@ import { updateNoteDto } from './dto/updateNoteDto';
 @Controller()
 export class AppController {
   constructor(private readonly InsertNoteService: InsertNoteService,
-              private readonly UpdateNoteService: UpdateNoteService,
-              private readonly DeleteNoteService: DeleteNoteService,
-              private readonly getNoteService:    getNoteService
   ) {}
 
 
@@ -28,11 +25,14 @@ export class AppController {
     let noteDto = new insertNoteDto(title,content)
     
     let note = await this.InsertNoteService.insert(noteDto)
-
-    return(res.status(200).json(note))
+    if (note instanceof insertNoteDto){
+      return(res.status(200).json(note))
+    }else{
+      return(res.status(404).json(note))
+    }
     
   }
-
+/*/
   @Put('/notes')
   async update(@Res() response: Response, @Req() request: Request): Promise<any> {
     const { id_note, title, content } = request.body
@@ -76,5 +76,5 @@ export class AppController {
 
     return(response.json(notes));
   }
-
+/*/
 }
