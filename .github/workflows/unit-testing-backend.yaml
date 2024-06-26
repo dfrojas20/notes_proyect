@@ -26,9 +26,13 @@ jobs:
           nvm install 18
           node -v
           npm -v
-      - name: Install Node dependencies and run test
+      - name: Install Node dependencies
         run: |
           cd ${{ github.workspace }}
           cd notes_backend
-          npm i
+          npm i    
+      - name: unit test
+        run: |
+          cd ${{ github.workspace }}
+          cd notes_backend
           npm run test
