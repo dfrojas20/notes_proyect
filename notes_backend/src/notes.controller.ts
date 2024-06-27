@@ -7,11 +7,13 @@ import { Response, Request, query } from 'express';
 import { insertNoteDto } from './dto/insertNoteDto';
 import { deleteNoteDto } from './dto/deleteNoteDto';
 import { updateNoteDto } from './dto/updateNoteDto';
+import { Note } from './schemas/note.schema';
 
 
 @Controller()
 export class AppController {
   constructor(private readonly InsertNoteService: InsertNoteService,
+              private readonly getNoteService: getNoteService
   ) {}
 
 
@@ -63,6 +65,7 @@ export class AppController {
       return(response.status(404).json({"message": "bad request(undefined object)"}))
   }
 
+  /*/
 
   @Get('/notes')
   async getHello(@Res() response: Response, @Req() request: Request): Promise<any> {
@@ -73,8 +76,9 @@ export class AppController {
     }
 
     let notes = await this.getNoteService.getAll()
+    if (notes[0] instanceof Note) return(response.status(200).json(notes))
 
-    return(response.json(notes));
+    return(response.status(404).json(notes))
   }
-/*/
+
 }

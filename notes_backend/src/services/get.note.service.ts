@@ -1,15 +1,20 @@
 import { Model } from 'mongoose';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Note } from 'src/schemas/note.schema';
+import { INoteRepository } from 'src/repositories/I-note-repository';
 
 @Injectable()
 export class getNoteService {
 
-    constructor(@InjectModel(Note.name) private noteModel: Model<Note>) {}
+    private readonly noteRepo: INoteRepository
+
+    constructor(@Inject('INoteRepository') noteRepo: INoteRepository) {
+        this.noteRepo = noteRepo;
+      }
     
-    async getAll(): Promise<Note[]> {
-        return this.noteModel.find().exec();
+    async getAll(): Promise<Note[] | string> {
+        return await this.noteRepo.getAllNotes()
     }
     
     

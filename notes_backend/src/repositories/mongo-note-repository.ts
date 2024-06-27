@@ -2,6 +2,7 @@ import { Schema, model, connect } from 'mongoose';
 import { INoteRepository } from './I-note-repository';
 import { insertNoteDto } from 'src/dto/insertNoteDto';
 import { Injectable } from '@nestjs/common';
+import { Note } from 'src/schemas/note.schema';
 
 // 1. Create an interface representing a document in MongoDB.
 interface INote {
@@ -22,6 +23,25 @@ const noteSchema = new Schema<INote>({
 export class mongoNoteRepository implements INoteRepository{
 
     constructor() {}
+
+    async getAllNotes(): Promise<string | Note[]> {
+        try {
+            const NoteModel = model<INote>('Note', noteSchema); 
+            await connect(process.env.DB_HOST); 
+            
+            const mongo_notes = await NoteModel.find()
+            const notes: Note[] = []
+
+            mongo_notes.forEach(note => {
+                notes.push(new Note(note.title, note.content, note.last_updated_date))
+            });
+            
+            return notes
+
+        } catch (error) {
+            return error 
+        }
+    }
     
     async crearNota(nota: insertNoteDto): Promise<string | insertNoteDto> {
 

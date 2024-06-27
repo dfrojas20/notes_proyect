@@ -11,7 +11,7 @@ jobs:
       with:
         channel: '1.26/stable'
         addons: '["dns", "rbac", "hostpath-storage", "registry"]'
-    - name: Test MicroK8s
+    - name: Setting up MicroK8s cluster
       id: myactions
       run: |
         kubectl get no
@@ -21,7 +21,9 @@ jobs:
         kubectl get pods -A -o wide
         kubectl exec mongo-0 -it -- mongo --eval 'rs.initiate({_id: "rs0", members: [{ _id: 0, host: "mongo-0.mongo:27017" }, { _id: 1, host: "mongo-1.mongo:27017" }, { _id: 2, host: "mongo-2.mongo:27017" }]})'
         kubectl exec mongo-0 -it -- mongo --eval 'rs.status()'
-        kubectl apply -f ./kubernetes/app-deployment.yaml
+        kubectl apply -f ./kubernetes/back-deployment.yaml
+        sleep 20
+        kubectl apply -f ./kubernetes/front-deployment.yaml
         sleep 20
         kubectl get pods -A -o wide
     - name: executing POST NOTE integration test
@@ -30,4 +32,11 @@ jobs:
         -H "Content-Type: application/json" \
         -d '{"title":"nota 1", "content":"contenido 1"}'
         kubectl exec mongo-0 -it -- mongo --eval 'db.notes.find()'
-
+    - name: executing GET ALL NOTES integration test  
+      run: |
+          curl -X GET http://localhost:30000/notes \
+          -H "Content-Type: application/json" \
+    - name: executing frontend integration test
+      run: |
+        curl -X GET http://localhost:8000/ \
+          -H "Content-Type: application/json"  | grep contenido \
