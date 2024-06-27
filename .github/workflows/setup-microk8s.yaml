@@ -24,6 +24,6 @@ jobs:
         kubectl apply -f ./kubernetes/app-deployment.yaml
         sleep 20
         kubectl get pods -A -o wide
-    - name: executing integration test
-      run: curl http://localhost:30000/notes
+    - name: executing POST NOTE integration test
+      run: curl -d {"title":"nota1","content":"contenido 1"} -H "Content-Type:application/json" --request POST http://localhost:30000/notes
 
