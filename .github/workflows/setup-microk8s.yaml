@@ -25,5 +25,8 @@ jobs:
         sleep 20
         kubectl get pods -A -o wide
     - name: executing POST NOTE integration test
-      run: curl -X POST -d {"title":"nota1","content":"contenido 1"} -H "Content-Type:application/json" http://localhost:30000/notes
+      run: |
+        curl -X POST http://localhost:30000/notes \
+        -H "Content-Type: application/json" \
+        -d '{"title":"nota 1", "content":"contenido 1"}'
 
