@@ -4,12 +4,17 @@
   "description": "front de NotesApp",
   "main": "index.mjs",
   "scripts": {
-    "test": "node test.js",
+    "test": "node test.mjs",
     "start": "node index.mjs"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.4.6",
+    "jest": "^29.7.0",
+    "jsdom": "^24.1.0"
   }
 }

@@ -212,3 +212,7 @@ function putJson(id,title,content){
             });
     
        }
+
+module.exports = {
+  postJson
+}
