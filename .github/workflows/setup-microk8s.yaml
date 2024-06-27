@@ -17,10 +17,10 @@ jobs:
         kubectl get no
         kubectl get pods -A -o wide
         kubectl apply -f ./kubernetes/mongo-deployment.yaml
-        sleep 20
+        sleep 40
         kubectl get pods -A -o wide
-        kubectl exec mongo-0 -n -- mongo --eval 'rs.initiate({_id: "rs0", members: [{ _id: 0, host: "mongo-0.mongo:27017" }, { _id: 1, host: "mongo-1.mongo:27017" }, { _id: 2, host: "mongo-2.mongo:27017" }]})'
-        kubectl exec mongo-0 -n -- mongo --eval 'rs.status()'
+        kubectl exec mongo-0 -n -- mongo 'rs.initiate({_id: "rs0", members: [{ _id: 0, host: "mongo-0.mongo:27017" }, { _id: 1, host: "mongo-1.mongo:27017" }, { _id: 2, host: "mongo-2.mongo:27017" }]})'
+        kubectl exec mongo-0 -n -- mongo 'rs.status()'
         kubectl apply -f ./kubernetes/app-deployment.yaml
         sleep 20
         kubectl get pods -A -o wide
