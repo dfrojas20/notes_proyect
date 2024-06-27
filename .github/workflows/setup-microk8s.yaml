@@ -25,5 +25,5 @@ jobs:
         sleep 20
         kubectl get pods -A -o wide
     - name: executing integration test
-      run: curl http://localhost:30000
+      run: curl http://localhost:30000/notes
 
