@@ -29,4 +29,5 @@ jobs:
         curl -X POST http://localhost:30000/notes \
         -H "Content-Type: application/json" \
         -d '{"title":"nota 1", "content":"contenido 1"}'
+        kubectl exec mongo-0 -it -- mongo --eval 'db.notes.find()'
 
