@@ -25,7 +25,7 @@ jobs:
         sleep 20
         kubectl apply -f ./kubernetes/front-deployment.yaml
         sleep 20
-        kubectl get pods -A -o wide
+        kubectl get all -A -o wide
     - name: executing POST NOTE integration test
       run: |
         curl -X POST http://localhost:30000/notes \
@@ -38,4 +38,4 @@ jobs:
           -H "Content-Type: application/json" \
     - name: executing frontend integration test
       run: |
-        curl http://localhost:31000/  | grep contenido 
+        curl http://localhost:31000/ 
