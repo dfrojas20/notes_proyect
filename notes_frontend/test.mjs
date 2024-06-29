@@ -15,7 +15,7 @@ describe('Todo App', () => {
     // Cargar el HTML en el DOM
     document.documentElement.innerHTML = html.toString();
     container = document.body;
-
+    console.log('describe')
     // Importar y ejecutar el archivo app.js para manipular el DOM
     require('./app.js');
   });
