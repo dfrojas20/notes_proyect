@@ -3,6 +3,7 @@ import { INoteRepository } from './I-note-repository';
 import { insertNoteDto } from 'src/dto/insertNoteDto';
 import { Injectable } from '@nestjs/common';
 import { Note } from 'src/schemas/note.schema';
+import { updateNoteDto } from 'src/dto/updateNoteDto';
 
 // 1. Create an interface representing a document in MongoDB.
 interface INote {
@@ -23,6 +24,25 @@ const noteSchema = new Schema<INote>({
 export class mongoNoteRepository implements INoteRepository{
 
     constructor() {}
+    async updateNote(nota: updateNoteDto): Promise<string | Note> {
+        try{
+          const NoteModel = model<INote>('Note', noteSchema); 
+          const filter = { title: nota.old_title, content: nota.old_content };
+          const update = { title: nota.title, content: nota.content, last_updated_date: nota.last_updated_date};
+
+          
+          // The result of `findOneAndUpdate()` is the document _before_ `update` was applied
+          await NoteModel.findOneAndUpdate(filter, update);// { name: 'Jean-Luc Picard', _id: ObjectId('000000000000000000000000') }
+          
+          const updatedNote = await NoteModel.findOne(update);
+          return new Note(updatedNote.title, updatedNote.content, updatedNote.last_updated_date)
+        }catch (error){
+            return error
+        }
+    }
+    deleteNote(idNote: string): Promise<string | Note> {
+        throw new Error('Method not implemented.');
+    }
 
     async getAllNotes(): Promise<string | Note[]> {
         try {

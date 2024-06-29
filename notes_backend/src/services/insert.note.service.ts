@@ -9,7 +9,6 @@ export class InsertNoteService {
   private readonly noteRepo: INoteRepository
   
   constructor(@Inject('INoteRepository') noteRepo: INoteRepository) {
-    console.log(noteRepo)
     this.noteRepo = noteRepo;
   }
 

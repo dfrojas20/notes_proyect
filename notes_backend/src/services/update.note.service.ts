@@ -1,27 +1,28 @@
-import { Injectable } from '@nestjs/common';
-import { Model } from 'mongoose';
-import { InjectModel } from '@nestjs/mongoose';
+import { Inject, Injectable } from '@nestjs/common';
 import { Note } from 'src/schemas/note.schema';
 import { updateNoteDto } from 'src/dto/updateNoteDto';
+import { INoteRepository } from 'src/repositories/I-note-repository';
 
 @Injectable()
 export class UpdateNoteService {
 
-    constructor(@InjectModel(Note.name) private noteModel: Model<Note>) {}
+  private readonly noteRepo: INoteRepository
 
-    async update(updateNoteDto: updateNoteDto): Promise<any> {
-      try {            
-        const updatedNote = this.noteModel.findByIdAndUpdate(
-            {_id: updateNoteDto.id},
-            {title: updateNoteDto.name,
-             last_updated_date: new Date(), 
-             content: updateNoteDto.content}
-          );
-        return updatedNote
-      } catch (error) {
-        console.log(error)
-        return error
-      }
+  constructor(@Inject('INoteRepository') noteRepo: INoteRepository) {
+    this.noteRepo = noteRepo;
+  }
+
+    async update(updateDto: updateNoteDto): Promise<Note | string > {
+  
+      return await this.noteRepo.updateNote(new updateNoteDto(
+          updateDto.old_title,
+          updateDto.old_content,
+          
+          updateDto.id,
+          updateDto.title,
+          updateDto.content,
+          new Date() 
+      ))
 
     }
     

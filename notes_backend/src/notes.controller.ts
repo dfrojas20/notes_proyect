@@ -13,7 +13,8 @@ import { Note } from './schemas/note.schema';
 @Controller()
 export class AppController {
   constructor(private readonly InsertNoteService: InsertNoteService,
-              private readonly getNoteService: getNoteService
+              private readonly getNoteService: getNoteService,
+              private readonly updateNoteService: UpdateNoteService
   ) {}
 
 
@@ -34,22 +35,34 @@ export class AppController {
     }
     
   }
-/*/
+
   @Put('/notes')
   async update(@Res() response: Response, @Req() request: Request): Promise<any> {
-    const { id_note, title, content } = request.body
+    const { title, content } = request.body
+    const { old_title, old_content} = request.query
 
-    if (id_note !== undefined) {
-      let note = await this.UpdateNoteService.update(new updateNoteDto(id_note.toString(),title.toString(),content.toString())) 
-      if (note) {
+
+    if (title !== undefined && content !== undefined) {
+      let note = await this.updateNoteService.update(
+        new updateNoteDto(
+          old_title !== undefined ? String(old_title): '',
+          old_content !== undefined ? String(old_content): '',
+
+          '',
+          title,
+          content,
+          undefined
+      )
+    ) 
+      if (note instanceof Note) {
         return(response.status(200).json(note))
       }
-      return response.status(404).json({"message": "bad request"})
+      return response.status(404).json(note)
     }
   
     return(response.status(404).json({"message": "bad request(undefined object)"}))
 }
-
+  /*/
   @Delete('/notes')
     async delete(@Res() response: Response, @Req() request: Request): Promise<any> {
       const { id_note } = request.query

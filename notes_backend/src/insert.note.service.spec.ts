@@ -1,10 +1,17 @@
 
 import { insertNoteDto } from "./dto/insertNoteDto";
+import { updateNoteDto } from "./dto/updateNoteDto";
 import { INoteRepository } from "./repositories/I-note-repository";
 import { Note } from "./schemas/note.schema";
 import { InsertNoteService } from "./services/insert.note.service";
 
 class mockNoteRepository implements INoteRepository {
+    updateNote(nota: updateNoteDto): Promise<string | Note> {
+        throw new Error("Method not implemented.");
+    }
+    deleteNote(idNote: string): Promise<string | Note> {
+        throw new Error("Method not implemented.");
+    }
     
     async getAllNotes(): Promise<string | Note[]> {
         let notes = [
