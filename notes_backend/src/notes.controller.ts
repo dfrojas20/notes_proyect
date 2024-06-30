@@ -42,7 +42,7 @@ export class AppController {
     const { old_title, old_content} = request.query
 
 
-    if (title !== undefined && content !== undefined) {
+
       let note = await this.updateNoteService.update(
         new updateNoteDto(
           old_title !== undefined ? String(old_title): '',
@@ -58,9 +58,9 @@ export class AppController {
         return(response.status(200).json(note))
       }
       return response.status(404).json(note)
-    }
+
   
-    return(response.status(404).json({"message": "bad request(undefined object)"}))
+    //return(response.status(404).json({"message": "bad request(undefined object)"}))
 }
   /*/
   @Delete('/notes')
