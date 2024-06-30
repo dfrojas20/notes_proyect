@@ -43,10 +43,10 @@ jobs:
       run: |
           curl -X PUT "http://localhost:30000/notes?old_title=nota1&old_content=contenido1" \
           -H "Content-Type: application/json" \
-          -d '{"title":"nota1ACTUALIZADO", "content":"contenido1 ACTUALIZADO"}'
+          -d '{"title":"nota1.1", "content":"contenido1 ACTUALIZADO"}'
           kubectl exec mongo-0 -it -- mongo --eval 'db.notes.find()'
     - name: executing DELETE NOTE integration test
       run: |
-          curl -X DELETE "http://localhost:30000/notes?title=nota1ACTUALIZADO" \
+          curl -X DELETE "http://localhost:30000/notes?title=nota1.1" \
           -H "Content-Type: application/json" 
           kubectl exec mongo-0 -it -- mongo --eval 'db.notes.find()'
