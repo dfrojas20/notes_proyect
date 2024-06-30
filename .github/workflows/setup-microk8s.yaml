@@ -41,7 +41,7 @@ jobs:
         curl http://localhost:31000/ 
     - name: executing UPDATE NOTE integration test
       run: |
-          curl -X PUT http://localhost:30000/notes?old_title=nota1&old_content=contenido1 \
+          curl -X PUT -d '{"title":"nota1acualizado", "content":"contenido1actualizado"} \
           -H "Content-Type: application/json" \
-          -d '{"title":"nota1acualizado", "content":"contenido1actualizado"}'
+          http://localhost:30000/notes?old_title=nota1&old_content=contenido1
           kubectl exec mongo-0 -it -- mongo --eval 'db.notes.find()'
