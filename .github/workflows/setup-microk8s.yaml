@@ -48,5 +48,5 @@ jobs:
     - name: executing DELETE NOTE integration test
       run: |
           curl -X DELETE "http://localhost:30000/notes?title=nota1 ACTUALIZADO" \
-          -H "Content-Type: application/json" \
+          -H "Content-Type: application/json" 
           kubectl exec mongo-0 -it -- mongo --eval 'db.notes.find()'
