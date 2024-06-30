@@ -43,5 +43,5 @@ jobs:
       run: |
           curl -X PUT "http://localhost:30000/notes?old_title=nota1&old_content=contenido1" \
           -H "Content-Type: application/json" \
-          -d '{"title":"nota1acualizado", "content":"contenido1actualizado"}'
+          -d '{"title":"nota1 ACTUALIZADO", "content":"contenido1 ACTUALIZADO"}'
           kubectl exec mongo-0 -it -- mongo --eval 'db.notes.find()'
