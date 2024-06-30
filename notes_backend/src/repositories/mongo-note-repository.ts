@@ -40,8 +40,19 @@ export class mongoNoteRepository implements INoteRepository{
             return error
         }
     }
-    deleteNote(idNote: string): Promise<string | Note> {
-        throw new Error('Method not implemented.');
+
+    async deleteNote(idNote: string): Promise<string | Note> {
+        try{
+            const NoteModel = model<INote>('Note', noteSchema); 
+            const filter = { title: idNote };
+            
+            // The result of `findOneAndUpdate()` is the document _before_ `update` was applied
+            const deletedNote = await NoteModel.findOneAndDelete(filter);// { name: 'Jean-Luc Picard', _id: ObjectId('000000000000000000000000') }
+            
+            return new Note(deletedNote.title, deletedNote.content, deletedNote.last_updated_date)
+          }catch (error){
+              return error
+          }
     }
 
     async getAllNotes(): Promise<string | Note[]> {

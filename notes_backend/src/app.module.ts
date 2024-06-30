@@ -4,6 +4,7 @@ import { InsertNoteService } from './services/insert.note.service';
 import { mongoNoteRepository } from './repositories/mongo-note-repository';
 import { getNoteService } from './services/get.note.service';
 import { UpdateNoteService } from './services/update.note.service';
+import { DeleteNoteService } from './services/delete.note.service';
 
 var url: string = process.env.DB_HOST
 console.log("app version 1.0")
@@ -11,7 +12,7 @@ console.log(url)
 
 @Module({
   controllers: [AppController],
-  providers: [InsertNoteService,getNoteService,UpdateNoteService,
+  providers: [InsertNoteService,getNoteService,UpdateNoteService,DeleteNoteService,
     { provide: 'INoteRepository',
       useClass: mongoNoteRepository}]
   

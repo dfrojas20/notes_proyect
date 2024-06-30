@@ -13,7 +13,6 @@ export class InsertNoteService {
   }
 
   async insert(insertNoteDto: insertNoteDto): Promise<string | insertNoteDto> {
-    console.log(insertNoteDto)
     return await this.noteRepo.crearNota(insertNoteDto)
   }
 
